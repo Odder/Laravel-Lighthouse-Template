@@ -1,0 +1,32 @@
+type DummyType {
+  id: ID!
+  field: String
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+input CreateDummyTypeInput {
+  field: String
+}
+
+input UpdateDummyTypeInput {
+  id: ID!
+  field: String  
+}
+
+input UpsertDummyTypeInput {
+  id: ID!
+  field: String  
+}
+
+extend type Query {
+  DummyLowerType(id: ID! @eq): DummyType @find
+  DummyLowerTypes: [DummyType!]! @paginate
+}
+
+extend type Mutation {
+  createDummyType(input: CreateDummyTypeInput @spread): DummyType @create
+  updateDummyType(input: UpdateDummyTypeInput @spread): DummyType @update
+  upsertDummyType(input: UpsertDummyTypeInput @spread): DummyType @upsert
+  deleteDummyType(id: ID!  @eq): DummyType @delete
+}
